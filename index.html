@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Black Mesa Unmanned Systems</title>
+<meta name="description" content="Black Mesa Unmanned Systems brings drone detection, unmanned aircraft and AI software to local law enforcement and public safety agencies.">
+<meta name="theme-color" content="#14161a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://blackmesaus.com/">
+<meta property="og:title" content="Black Mesa Unmanned Systems">
+<meta property="og:description" content="Advanced airspace awareness for local law enforcement. Coming soon.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2314161a'/%3E%3Cpath d='M6 20V6h14M44 6h14v14M58 44v14H44M20 58H6V44' fill='none' stroke='%23eceef0' stroke-width='5'/%3E%3Cpath d='M18 44l6-14h16l6 14z' fill='%23eceef0'/%3E%3Ccircle cx='32' cy='21' r='4' fill='%23ff8a3d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500;125,600&family=Hanken+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one dark screen. Left-weighted lockup and mission over a faint, slowly sweeping range scope anchored bottom-right; a thin status bar top and a footer rail bottom. Single dark theme by design. */
+:root {
+  --carbon: #14161a;
+  --ink: #eceef0;
+  --haze: #9aa0a8;
+  --line: #2c3138;
+  --dusk: #ff8a3d;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Hanken Grotesk", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--carbon); color: var(--ink); font-family: var(--body); line-height: 1.6; overflow-x: hidden; }
+#scope { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.page { position: relative; min-height: 100%; display: grid; grid-template-rows: auto 1fr auto; padding-inline: clamp(1rem, 5vw, 4.5rem); }
+.mono { font-family: var(--mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--haze); }
+
+.top { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-block: 1.4rem; border-bottom: 1px solid var(--line); }
+.status { display: inline-flex; align-items: center; gap: .55rem; }
+.status i { width: .45rem; height: .45rem; border-radius: 50%; background: var(--dusk); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+
+main { display: grid; align-content: center; gap: 2.6rem; padding-block: 4rem; max-width: 50rem; }
+.lockup { display: flex; align-items: center; gap: clamp(.9rem, 2.5vw, 1.5rem); }
+.lockup svg { width: clamp(3.4rem, 9vw, 5.5rem); height: auto; aspect-ratio: 1; flex: none; }
+.wm b { display: block; font-family: var(--display); font-stretch: 125%; font-weight: 600; font-size: clamp(1.5rem, 5.2vw, 3rem); letter-spacing: .08em; line-height: 1; text-transform: uppercase; }
+.wm small { display: block; margin-top: .7rem; font-family: var(--display); font-stretch: 125%; font-weight: 500; font-size: clamp(.55rem, 1.5vw, .82rem); letter-spacing: .32em; text-transform: uppercase; color: var(--haze); }
+
+.mission { display: grid; gap: 1.1rem; border-left: 2px solid var(--dusk); padding-left: clamp(1rem, 2.5vw, 1.6rem); }
+.mission h1 { margin: 0; font-family: var(--display); font-stretch: 125%; font-weight: 600; font-size: clamp(1.15rem, 2.8vw, 1.7rem); letter-spacing: .03em; line-height: 1.25; text-transform: uppercase; text-wrap: balance; }
+.kicker { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--dusk); }
+.mission p { margin: 0; max-width: 58ch; color: var(--haze); font-size: clamp(1rem, 1.6vw, 1.1rem); }
+.soon { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.soon b { font-family: var(--display); font-stretch: 125%; font-weight: 600; font-size: .8rem; letter-spacing: .22em; text-transform: uppercase; color: var(--dusk); }
+.soon span { height: 1px; width: 4rem; background: var(--line); }
+
+footer { display: flex; justify-content: space-between; gap: .8rem 2rem; flex-wrap: wrap; padding-block: 1.4rem; border-top: 1px solid var(--line); }
+footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; }
+
+@media (prefers-reduced-motion: reduce) { .status i { animation: none; } }
+</style>
+</head>
+<body>
+<canvas id="scope" aria-hidden="true"></canvas>
+
+<div class="page">
+  <div class="top">
+    <span class="mono status"><i></i>Site in development</span>
+    <span class="mono">Oklahoma, USA</span>
+  </div>
+
+  <main>
+    <div class="lockup">
+      <svg viewBox="0 0 64 64" role="img" aria-label="Black Mesa logo">
+        <path d="M6 20 V6 H20 M44 6 H58 V20 M58 44 V58 H44 M20 58 H6 V44" fill="none" stroke="#eceef0" stroke-width="5"/>
+        <path d="M18 44 L24 30 H40 L46 44 Z" fill="#eceef0"/>
+        <circle cx="32" cy="21" r="4" fill="#ff8a3d"/>
+      </svg>
+      <div class="wm"><b>Black Mesa</b><small>Unmanned Systems</small></div>
+    </div>
+
+    <div class="mission">
+      <span class="kicker">Built for the agencies that protect our communities</span>
+      <h1>Advanced airspace awareness for local law enforcement.</h1>
+      <p>Black Mesa Unmanned Systems brings drone detection, unmanned aircraft and AI software to local law enforcement and public safety agencies, starting with ORION.</p>
+    </div>
+
+    <div class="soon"><b>Coming soon</b><span></span></div>
+  </main>
+
+  <footer>
+    <ul class="mono"><li>Law enforcement</li><li>Public safety</li><li>Drone detection</li></ul>
+    <span class="mono">&copy; 2026 Black Mesa Unmanned Systems, LLC</span>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const cv = document.getElementById("scope"), ctx = cv.getContext("2d");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let w, h, dpr, cx, cy, R, a = -Math.PI / 2;
+  function size() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = cv.clientWidth; h = cv.clientHeight;
+    cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = w * (w < 700 ? .85 : .82); cy = h * (w < 700 ? .9 : .78);
+    R = Math.max(w, h) * .62;
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = "rgba(236,238,240,0.06)"; ctx.lineWidth = 1;
+    for (let i = 1; i <= 5; i++) { ctx.beginPath(); ctx.arc(cx, cy, R * i / 5, 0, Math.PI * 2); ctx.stroke(); }
+    for (let k = 0; k < 12; k++) {
+      const t = k * Math.PI / 6;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(t) * R, cy + Math.sin(t) * R); ctx.stroke();
+    }
+    for (let i = 0; i < 40; i++) {
+      const a0 = a - i * .012;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, R, a0 - .012, a0); ctx.closePath();
+      ctx.fillStyle = `rgba(255,138,61,${0.07 * (1 - i / 40)})`; ctx.fill();
+    }
+    // single contact, brightens as the sweep passes
+    const ca = -2.25, cr = R * .46, px = cx + Math.cos(ca) * cr, py = cy + Math.sin(ca) * cr;
+    let d = ((a - ca) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+    const glow = reduce ? .5 : Math.max(.12, 1 - d / 2.2);
+    ctx.fillStyle = `rgba(255,138,61,${glow})`;
+    ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = `rgba(255,138,61,${glow * .6})`; ctx.lineWidth = 1.5;
+    const s = 11;
+    [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([sx, sy]) => {
+      ctx.beginPath(); ctx.moveTo(px + sx * s, py + sy * (s - 5)); ctx.lineTo(px + sx * s, py + sy * s); ctx.lineTo(px + sx * (s - 5), py + sy * s); ctx.stroke();
+    });
+  }
+  size(); draw();
+  addEventListener("resize", () => { size(); draw(); });
+  if (!reduce) {
+    let last = performance.now();
+    const loop = now => { a += (now - last) / 1000 * .5; last = now; draw(); requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body>
+</html>
