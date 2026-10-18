@@ -69,10 +69,13 @@ footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.4rem;
 
   <main>
     <div class="lockup">
-      <svg viewBox="0 0 64 64" role="img" aria-label="Black Mesa logo">
-        <path d="M6 20 V6 H20 M44 6 H58 V20 M58 44 V58 H44 M20 58 H6 V44" fill="none" stroke="#eceef0" stroke-width="5"/>
-        <path d="M18 44 L24 30 H40 L46 44 Z" fill="#eceef0"/>
-        <circle cx="32" cy="21" r="4" fill="#ff8a3d"/>
+      <svg viewBox="0 0 100 100" role="img" aria-label="Black Mesa logo" fill="none" stroke="#eceef0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <defs><clipPath id="bm-c"><circle cx="50" cy="50" r="44"/></clipPath></defs>
+        <g clip-path="url(#bm-c)">
+          <path d="M0 53.6 H33.4 M66.6 53.6 H100"/>
+          <path d="M4 83 L28.6 62 L35 49.4 Q35.7 48 37.3 48 H62.7 Q64.3 48 65 49.4 L71.4 62 L96 83"/>
+        </g>
+        <circle cx="50" cy="50" r="44"/>
       </svg>
       <div class="wm"><b>Black Mesa</b><small>Unmanned Systems</small></div>
     </div>
